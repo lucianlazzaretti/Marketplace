@@ -1,6 +1,8 @@
 import { Controller, Post, Body, Get, Param, Delete } from '@nestjs/common';
-import { ProdutoService } from './produto.service';
-import { Produto } from './produto.entity';
+import { ProdutoService } from '../service/produto.service';
+import { Produto } from '../model/produto.entity';
+import {plainToClass} from 'class-transformer'
+import { ProdutoDto } from './produto.dto';
 
 @Controller('produto')
 export class ProdutoController {
@@ -8,9 +10,11 @@ export class ProdutoController {
     constructor(private readonly service : ProdutoService){}
     
     @Post()
-    save(@Body() produto: Produto) {
+    save(@Body() produtoDto: ProdutoDto) {
+        const produto = plainToClass(Produto,produtoDto)
         return this.service.save(produto);
     }
+
 
     @Get()
     findAll() {

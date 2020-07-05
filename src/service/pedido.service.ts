@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Pedido } from './pedido.entity';
+import { Pedido } from '../model/pedido.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
@@ -20,10 +20,10 @@ export class PedidoService {
     }
 
     findAll() {
-        return this.repository.find();
+        return this.repository.find({ relations: ["itemPedido"] });
     }
 
     findById(id: number) {
-        return this.repository.findOne(id);
+        return this.repository.findOne(id, { relations: ["itemPedido"] });
     }
 }

@@ -1,5 +1,5 @@
 import { Injectable, Inject } from '@nestjs/common';
-import { Cliente } from './cliente.entity';
+import { Cliente } from '../model/cliente.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 
@@ -25,6 +25,6 @@ export class ClienteService {
     }
 
     findById(id : number){
-        return this.repository.findOne(id);
+        return this.repository.findOne(id, { relations: ["pedido"] });
         }
 }

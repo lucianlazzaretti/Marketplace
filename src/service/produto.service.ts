@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Produto } from './produto.entity';
+import { Produto } from '../model/produto.entity';
 import { Repository } from 'typeorm';
 
 @Injectable()
@@ -20,10 +20,10 @@ export class ProdutoService {
     }
 
     findAll() {
-        return this.repository.find();
+        return this.repository.find({ relations: ["itemPedido"] });
     }
 
     findById(id: number) {
-        return this.repository.findOne(id);
+        return this.repository.findOne(id, { relations: ["estoque"] });
     }
 }

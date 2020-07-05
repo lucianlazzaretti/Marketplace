@@ -1,6 +1,8 @@
 import { Controller, Post, Body, Get, Param, Delete } from '@nestjs/common';
-import { PedidoService } from "./pedido.service";
-import { Pedido } from './pedido.entity';
+import { PedidoService } from "../service/pedido.service";
+import { Pedido } from '../model/pedido.entity';
+import { PedidoDto } from './pedido.dto';
+import {plainToClass} from 'class-transformer'
 
 
 @Controller('pedido')
@@ -9,9 +11,11 @@ export class PedidoController {
     constructor(private readonly service : PedidoService){}
     
     @Post()
-    save(@Body() pedido: Pedido) {
+    save(@Body() pedidoDto: PedidoDto) {
+        const pedido = plainToClass(Pedido,pedidoDto)
         return this.service.save(pedido);
     }
+
 
     @Get()
     findAll() {

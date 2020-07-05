@@ -1,17 +1,21 @@
 import { Module } from '@nestjs/common';
-import { ItempedidoController } from './itempedido/itempedido.controller';
-import { ItempedidoService } from './itempedido/itempedido.service';
+import { ItempedidoController } from './controller/itempedido.controller';
+import { ItempedidoService } from './service/itempedido.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Cliente } from './cliente/cliente.entity';
-import { ItemPedido } from './itempedido/itempedido.entity';
-import { Pedido } from './pedido/pedido.entity';
-import { Produto } from './produto/produto.entity';
-import { ClienteService } from './cliente/cliente.service';
-import { PedidoService } from './pedido/pedido.service';
-import { ProdutoService } from './produto/produto.service';
-import { ClienteController } from './cliente/cliente.controller';
-import { PedidoController } from './pedido/pedido.controller';
-import { ProdutoController } from './produto/produto.controller';
+import { Cliente } from './model/cliente.entity';
+import { ItemPedido } from './model/itempedido.entity';
+import { Pedido } from './model/pedido.entity';
+import { Produto } from './model/produto.entity';
+import { ClienteService } from './service/cliente.service';
+import { PedidoService } from './service/pedido.service';
+import { ProdutoService } from './service/produto.service';
+import { ClienteController } from './controller/cliente.controller';
+import { PedidoController } from './controller/pedido.controller';
+import { ProdutoController } from './controller/produto.controller';
+import { EstoqueModule } from './controller/estoque.module';
+import { Estoque } from './model/estoque.entity';
+import { EstoqueController } from './controller/estoque.controller';
+import { EstoqueService } from './service/estoque.service';
 
 @Module({
   imports: [
@@ -27,6 +31,7 @@ import { ProdutoController } from './produto/produto.controller';
       Produto,
       Pedido,
       ItemPedido,
+      Estoque
     ],
     synchronize: true,
     logging: true
@@ -36,19 +41,23 @@ import { ProdutoController } from './produto/produto.controller';
     Produto,
     Pedido,
     ItemPedido,
-  ])
+    Estoque
+  ]),
+  
 ],
   controllers: [
     ClienteController, 
     ItempedidoController,
     PedidoController,
-    ProdutoController
+    ProdutoController,
+    EstoqueController
   ],
   providers: [
     ClienteService,
     ItempedidoService,
     PedidoService,
-    ProdutoService
+    ProdutoService,
+    EstoqueService
   ],
 })
 export class AppModule {}
